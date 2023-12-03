@@ -2,7 +2,7 @@ from aiogram.utils.keyboard import InlineKeyboardBuilder
 from aiogram.types import InlineKeyboardButton
 
 
-def get_date_keyboard():
+def get_image_keyboard():
     builder = InlineKeyboardBuilder()
-    builder.add(InlineKeyboardButton(text="Send date", callback_data="date_value"))
+    builder.add(InlineKeyboardButton(text="Skip image", callback_data="skip_image"))
     return builder.as_markup()

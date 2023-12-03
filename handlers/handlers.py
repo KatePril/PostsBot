@@ -4,7 +4,6 @@ from aiogram.types import Message
 
 from keyboards.reply_keyboards.main_keyboard import get_main_keyboard
 
-from main import dp
 
 router = Router()
 
@@ -13,5 +12,3 @@ router = Router()
 async def start(message: Message):
     await message.answer("Now you can create post", reply_markup=get_main_keyboard(True))
 
-
-dp.include_router(router)
