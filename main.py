@@ -2,8 +2,7 @@ import asyncio
 from aiogram import Bot, Dispatcher
 from settings import settings
 from handlers.handlers import router
-from handlers.post_handlers import state_router, dispatcher
-
+from handlers.post_handlers import state_router
 
 
 

@@ -10,5 +10,5 @@ router = Router()
 
 @router.message(Command("start"))
 async def start(message: Message):
-    await message.answer("Now you can create post", reply_markup=get_main_keyboard(True))
+    await message.answer("Now you can create post", reply_markup=get_main_keyboard())
 
