@@ -13,6 +13,7 @@ from keyboards.inline_keyboards.image_keyboard import get_image_keyboard
 from keyboards.inline_keyboards.final_keyboard import get_final_keyboard
 
 from aiogram.enums import ParseMode
+from handlers.handlers import start
 
 state_router = Router()
 
@@ -90,10 +91,12 @@ async def final_reply(message: Message, data: dict):
 
 @state_router.callback_query(F.data == "create_post")
 async def post_created(message: Message):
-    await message.answer("post creation cancelled", reply_markup=get_main_keyboard())
+    await message.answer("post created")
+    await message.answer("Now you can create new post", reply_markup=get_main_keyboard())
 
 
-@state_router.message(F.data == "fill_again")
+@state_router.callback_query(F.data == "fill_again")
 async def fill_again(message: Message, state: FSMContext):
+    print("here")
     await state.set_state(PostForm.name)
     await message.answer("Enter the name of the post:", reply_markup=ReplyKeyboardRemove())
