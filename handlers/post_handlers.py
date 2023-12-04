@@ -2,18 +2,17 @@ from aiogram import Router, F
 from aiogram.types import Message, CallbackQuery
 from aiogram.fsm.context import FSMContext
 from aiogram.types.reply_keyboard_remove import ReplyKeyboardRemove
+from aiogram.enums import ParseMode
 
 from states.PostState import PostForm
 
 from keyboards.reply_keyboards.cancel_keyboard import get_cancel_keyboard
 from keyboards.reply_keyboards.main_keyboard import get_main_keyboard
+from keyboards.reply_keyboards.final_keyboard import get_final_keyboard
+
 from keyboards.inline_keyboards.time_keyboard import get_time_keyboard
 from keyboards.inline_keyboards.date_keyboard import get_date_keyboard
 from keyboards.inline_keyboards.image_keyboard import get_image_keyboard
-from keyboards.inline_keyboards.final_keyboard import get_final_keyboard
-
-from aiogram.enums import ParseMode
-from handlers.handlers import start
 
 state_router = Router()
 
@@ -89,14 +88,12 @@ async def final_reply(message: Message, data: dict):
                              reply_markup=get_final_keyboard())
 
 
-@state_router.callback_query(F.data == "create_post")
+@state_router.message(F.text == "Create post")
 async def post_created(message: Message):
-    await message.answer("post created")
-    await message.answer("Now you can create new post", reply_markup=get_main_keyboard())
+    await message.answer("Post created successfully", reply_markup=get_main_keyboard())
 
 
-@state_router.callback_query(F.data == "fill_again")
+@state_router.message(F.text == "Fill the form again")
 async def fill_again(message: Message, state: FSMContext):
-    print("here")
     await state.set_state(PostForm.name)
     await message.answer("Enter the name of the post:", reply_markup=ReplyKeyboardRemove())
